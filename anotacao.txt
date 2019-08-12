@@ -1,0 +1,32 @@
+Pasta "src": nela estarão todos os códigos
+
+src > app.js: configuração do servidor express
+
+src > routes.js: todas as rotas
+
+##################
+
+Pasta App (dentro de src)
+Ficará a pasta "controllers" e "models"
+
+Pasta Config: conexão com o banco de dados
+src > config > database.js
+
+Pasta DATABASE: Migrations
+src > database > migrations
+
+######
+Configurando o Sequelize
+yarn add sequelize
+yarn add sequelize-cli -D  //Interface de linha de comando para facilitar criação de migrations, etc.
+
+Criar arquivo .sequelizerc na raíz:
+
+
+#####
+Assim que criar a migration, fazer o model correspondente na pasta de Models.
+Importar o { model } from 'sequelize';
+
+Criar a classe de usuário que vai extender de Model
+
+
