@@ -87,6 +87,13 @@ class AppointmentController {
         .json({ error: 'Appointment date is not avaliable' });
     }
 
+    // Verifica se está tentando agendar consigo mesmo
+    if (provider_id === req.userId) {
+      return res
+        .status(401)
+        .json({ error: 'Unable to create schedule for yourself' });
+    }
+
     const appointment = await Appointment.create({
       user_id: req.userId,
       provider_id,
