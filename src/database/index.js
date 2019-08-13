@@ -1,5 +1,6 @@
 // Esse arquivo realizará a conexão com o banco e carregar os models
 import Sequelize from 'sequelize';
+import mongoose from 'mongoose';
 
 import databaseConfig from '../config/database';
 
@@ -12,6 +13,7 @@ const models = [User, File, Appointment]; // Array contendo as classes
 class Database {
   constructor() {
     this.init();
+    this.mongo();
   }
 
   init() {
@@ -24,6 +26,16 @@ class Database {
       .map(model => model.init(this.connection))
       .map(model => model.associate && model.associate(this.connection.models));
     // Método só é chamado se o associate existir. Por isso a condicional &&
+  }
+
+  mongo() {
+    // Criando imagem do mongo no docker
+    // docker run --name mongobarber -p 27017:27017 -d -t mongo
+
+    this.mongoConnection = mongoose.connect(
+      'mongodb://localhost:27017/gobarber',
+      { useNewUrlParser: true, useFindAndModify: true }
+    );
   }
 }
 
