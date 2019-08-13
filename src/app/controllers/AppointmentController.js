@@ -6,6 +6,8 @@ import File from '../models/File';
 
 class AppointmentController {
   async index(req, res) {
+    const { page = 1 } = req.query;
+
     /*
      * user_id seja igual ao req.userId (id do token, do usuário logado)
      * agendamentos que não foram cancelados: canceled_at: null
@@ -15,6 +17,8 @@ class AppointmentController {
       where: { user_id: req.userId, canceled_at: null },
       order: ['date'],
       attributes: ['id', 'date'],
+      limit: 20,
+      offset: (page - 1) * 20, // Se estiver na página 1, não pula registros
       include: [
         {
           model: User,
@@ -24,7 +28,7 @@ class AppointmentController {
             {
               model: File,
               as: 'avatar',
-              attributes: ['id', 'path', 'url'],
+              attributes: ['id', 'path', 'url'], // Necessário fornecer o caminho path
             },
           ],
         },
