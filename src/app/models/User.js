@@ -36,6 +36,11 @@ class User extends Model {
     return this; // Retorna o model inicializado
   }
 
+  static associate(models) {
+    // tipo de relacionamento (pertence à)
+    this.belongsTo(models.File, { foreignKey: 'avatar_id' });
+  }
+
   checkPassword(password) {
     return bcrypt.compare(password, this.password_hash);
   }

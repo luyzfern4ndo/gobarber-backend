@@ -19,9 +19,10 @@ class Database {
     // Conexão com a base de dados
     // É a variável esperada dentro do Model, no método init
 
-    models.map(model => {
-      return model.init(this.connection);
-    });
+    models
+      .map(model => model.init(this.connection))
+      .map(model => model.associate && model.associate(this.connection.models));
+    // Método só é chamado se o associate existir. Por isso a condicional &&
   }
 }
 
